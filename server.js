@@ -12,7 +12,7 @@ const mainSubscription = [];
 
 const app = express();
 const hostname = '0.0.0.0';
-const hostPort = 8080;
+const hostPort = 5000;
 const defaultMessages = {
   result: [
     {

@@ -55,10 +55,10 @@ app.use(cors());
 app.use(express.static( 'dist'));
 app.use(require('body-parser').json());
 
-// app.get('/', (req, res) => {
-//   console.log(req);
-//   res.send({ data: 'server work true' });
-// });
+app.get('/', (req, res) => {
+  console.log(req);
+  res.send({ data: 'server work true' });
+});
 
 app.get('/stories', (req, res) => {
   console.log(req);

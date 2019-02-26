@@ -9,8 +9,6 @@ const cors = require('cors');
 // Replace with your email
 webpush.setVapidDetails('mailto:val@karpov.io', PUBLIC_VAPID, PRIVATE_VAPID);
 
-console.log('fs', fs);
-
 const setDB = (subscription) => {
   fs.readFile('db.json', 'utf8', function readFileCallback(err, data){
     if (err){
@@ -31,6 +29,9 @@ const sendNotification = (payload) => {
     } else {
     let obj = JSON.parse(data); //now it an object
       obj.table.forEach(subscription => {
+        console.log('payload', payload);
+        console.log('keys auth', subscription.keys.auth);
+        console.log('keys p256dh', subscription.keys.p256dh);
         webpush.sendNotification(subscription, payload).catch(error => {
           console.error(error.stack);
         });

@@ -1,0 +1,34 @@
+{
+  "result": [
+    {
+      "created": "2019-01-30T13:11:49.050Z",
+      "userId": 1,
+      "userAvatarUrl": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1",
+      "content": "some text lorem"
+    },
+    {
+      "created": "2019-01-30T13:11:49.050Z",
+      "userId": 1,
+      "userAvatarUrl": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1",
+      "content": "some text lorem"
+    },
+    {
+      "created": "2019-01-30T13:14:49.050Z",
+      "userId": 2,
+      "userAvatarUrl": "https://wordsmith.org/words/images/avatar2_large.png",
+      "content": "some text lorem"
+    },
+    {
+      "created": "2019-01-30T13:14:55.050Z",
+      "userId": 2,
+      "userAvatarUrl": "https://wordsmith.org/words/images/avatar2_large.png",
+      "content": "some text lorem"
+    },
+    {
+      "created": "2019-01-30T13:15:49.050Z",
+      "userId": 1,
+      "userAvatarUrl": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1",
+      "content": "some text lorem"
+    }
+  ]
+}

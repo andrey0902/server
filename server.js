@@ -1,6 +1,6 @@
 const webpush = require('web-push');
 const express = require('express');
-
+const path = require('path');
 const PUBLIC_VAPID =
   'BDhQ2zt1c04yetTqoxbR9LPo-bX4KJthI5mvLEkWoUqT9ouRkmjJNO0ZPaiU3ThrZnN77L65dhX0_v_Kpv57pWo';
 const PRIVATE_VAPID = 'syilIxA7itVhM45NwRFlrBRNBKaC9vvRWi6GKg9nX9A';
@@ -52,6 +52,7 @@ const defaultMessages = {
 };
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'dist')))
 app.use(require('body-parser').json());
 
 app.get('/', (req, res) => {

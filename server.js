@@ -106,6 +106,6 @@ app.post('/total', (req, res) => {
   });
 });
 
-app.listen(hostPort, hostname, () => {
+app.listen(hostPort, () => {
   console.log('Server started on port 3020');
 });

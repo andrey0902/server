@@ -1,5 +1,6 @@
 const webpush = require('web-push');
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const PUBLIC_VAPID =
   'BDhQ2zt1c04yetTqoxbR9LPo-bX4KJthI5mvLEkWoUqT9ouRkmjJNO0ZPaiU3ThrZnN77L65dhX0_v_Kpv57pWo';
@@ -7,6 +8,36 @@ const PRIVATE_VAPID = 'syilIxA7itVhM45NwRFlrBRNBKaC9vvRWi6GKg9nX9A';
 const cors = require('cors');
 // Replace with your email
 webpush.setVapidDetails('mailto:val@karpov.io', PUBLIC_VAPID, PRIVATE_VAPID);
+
+console.log('fs', fs);
+
+const setDB = (subscription) => {
+  fs.readFile('db.json', 'utf8', function readFileCallback(err, data){
+    if (err){
+      console.log(err);
+    } else {
+     let obj = JSON.parse(data); //now it an object
+      obj.table.push(subscription); //add some data
+      console.log(obj);
+      json = JSON.stringify(obj); //convert it back to json
+      fs.writeFile('db.json', json, 'utf8', () => {}); // write it back
+    }});
+};
+
+const sendNotification = (payload) => {
+  fs.readFile('db.json', 'utf8', function readFileCallback(err, data){
+    if (err){
+      console.log(err);
+    } else {
+    let obj = JSON.parse(data); //now it an object
+      obj.table.forEach(subscription => {
+        webpush.sendNotification(subscription, payload).catch(error => {
+          console.error(error.stack);
+        });
+      });
+
+    }});
+};
 
 const mainSubscription = [];
 
@@ -55,7 +86,7 @@ app.use(cors());
 app.use(express.static( 'dist'));
 app.use(require('body-parser').json());
 
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
   console.log(req);
   res.send({ data: 'server work true' });
 });
@@ -67,7 +98,10 @@ app.get('/stories', (req, res) => {
 
 app.post('/subscription', (req, res) => {
   const subscription = req.body;
-  mainSubscription.push(subscription);
+
+  // mainSubscription.push(subscription);
+  setDB(subscription);
+
   console.log('req.body', req.body);
   const notificationPayload = {
     notification: {
@@ -100,11 +134,13 @@ app.post('/total', (req, res) => {
   res.status(201).json({ success: 'send success' });
   const payload = JSON.stringify(notificationPayload);
 
-  mainSubscription.forEach(subscription => {
-    webpush.sendNotification(subscription, payload).catch(error => {
-      console.error(error.stack);
-    });
-  });
+  // mainSubscription.forEach(subscription => {
+  //   webpush.sendNotification(subscription, payload).catch(error => {
+  //     console.error(error.stack);
+  //   });
+  // });
+
+  sendNotification(payload);
 });
 
 app.listen(hostPort, () => {
